@@ -1,0 +1,32 @@
+[project]
+name = "taming_transformer"
+version = "0.0.1"
+description = "Implementation of the paper Taming Transformers"
+readme = "README.md"
+requires-python =">=3.10"
+authors = [
+  {name = "thibault monsel"},
+]
+
+urls = {repository = "https://github.com/thibmonsel/taming_transformer" }
+dependencies = ["torch>=2.3", "numpy","matplotlib", "requests", "tqdm", "datasets"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = ["vqvae/*"]
+
+
+[tool.ruff]
+line-length = 88 
+exclude = ["notebooks"]
+extend-include = ["*.ipynb"]
+lint.fixable = ["I001", "F401"]
+lint.ignore = ["E402", "E721", "E731", "E741", "F722"]
+lint.select = ["E", "F", "I001"]
+src = []
+
+[tool.ruff.format]
+preview = true
