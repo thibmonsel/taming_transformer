@@ -396,4 +396,12 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    print(f"PyTorch version: {torch.__version__}")
+    print(f"CUDA available: {torch.cuda.is_available()}")
+    if torch.cuda.is_available():
+        print(f"CUDA version PyTorch was compiled with: {torch.version.cuda}")
+        print(f"Number of GPUs: {torch.cuda.device_count()}")
+        print(f"Current GPU name: {torch.cuda.get_device_name(0)}")
+    else:
+        print("CUDA is NOT available to PyTorch.")
     main(args)
