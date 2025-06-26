@@ -1,6 +1,6 @@
 import torch
-import torch.nn.functional as F
 from torch import nn
+import torch.nn.functional as F
 
 # Decoder, Encoder together make up the GAN's Generator.
 from taming_transformer.models.encoder import Encoder

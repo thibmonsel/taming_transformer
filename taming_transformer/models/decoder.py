@@ -1,13 +1,7 @@
-import torch.nn as nn
-import torch.nn.functional as F
-from .modules import ResidualBlock, NonLocalBlock, UpSampleBlock
-
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-
+from .modules import ResidualBlock, NonLocalBlock, UpSampleBlock
 class Decoder(nn.Module):
     """
     The Decoder part of a VQGAN-style model.

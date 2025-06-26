@@ -3,8 +3,8 @@ Taken from https://github.com/thibmonsel/vqvae/blob/master/vqvae/quantizer.py
 """
 
 import torch
-import torch.nn.functional as F
 from torch import nn
+import torch.nn.functional as F
 
 
 class VectorQuantizer(nn.Module):
