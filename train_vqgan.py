@@ -53,13 +53,12 @@ def train(
         # The base autoencoder loss
         loss_ae = recon_loss + percep_loss + q_loss
 
-        # Generator's Adversarial Loss 
         if epoch >= args.disc_start_epoch:
             logits_fake_g = model.discriminator(recon_batch_g)
             loss_g_adv = -torch.mean(logits_fake_g)
-
             total_loss_g = loss_ae + args.gan_weight * loss_g_adv
         else:
+            # During warm-up, only train the autoencoder
             loss_g_adv = torch.tensor(0.0).to(device)  
             total_loss_g = loss_ae
 
@@ -208,7 +207,7 @@ def main(args):
         betas=(0.5, 0.9),
     )
     opt_disc = torch.optim.Adam(
-        model.discriminator.parameters(), lr=args.lr, betas=(0.5, 0.9)
+        model.discriminator.parameters(), lr=args.lr/4, betas=(0.5, 0.9)
     )
 
     print(
@@ -351,6 +350,13 @@ def main(args):
         model.state_dict(),
         os.path.join(save_dir, f"last_vqvae_epoch_{args.max_epochs}.pt"),
     )
+
+    if not os.path.exists(os.path.join(save_dir, "best_vqvae.pt")):
+        torch.save(
+            model.state_dict(),
+            os.path.join(save_dir, "best_vqvae.pt"),
+        )
+        print("Best model saved as best_vqvae.pt")
 
     save_training_loss(
         train_vq_loss=train_vq_loss,
